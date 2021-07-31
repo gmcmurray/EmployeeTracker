@@ -74,6 +74,34 @@ const Questions ={
     message: "What Employee ADD are you making?",
     choices: ["New Dept and New Role","New Dept and Existing Role","Existing Dept and New Role","Existing Dept and Role","Main Menu"],
     name:"Action"
+    }],
+    "New Dept and New Role": [{
+        type:"list",
+        message: "Are you done?",
+        choices: ["Main Menu","Done"],
+        name:"Action"
+    
+    }],
+    "New Dept and Existing Role":[{
+        type:"list",
+        message: "Are you done?",
+        choices: ["Main Menu","Done"],
+        name:"Action"
+    
+    }],
+    "Existing Dept and New Role":[{
+        type:"list",
+        message: "Are you done?",
+        choices: ["Main Menu","Done"],
+        name:"Action"
+    
+    }],
+    "Existing Dept and Role":[{
+        type:"list",
+        message: "Are you done?",
+        choices: ["Main Menu","Done"],
+        name:"Action"
+    
     }]
 
 }

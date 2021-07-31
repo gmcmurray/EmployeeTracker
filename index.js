@@ -34,12 +34,12 @@ async function  startquest(){
     if(ans1.Action !== "Add Resources/Role"){
         let ans2= await inquirer.prompt(questions[nextone]);
         console.log(ans2.Action)
+        return startquest();
     }
     else {
         let ans3 = await inquirer.prompt(questions["Add Employee"])
         console.log('Add Employee' , ans1.Action1)}
-    // fullreq.push(nextone)
-    // console.log(fullreq,nextone)
+        return startquest();
 
 }
 
