@@ -1,23 +1,31 @@
 
+const Departmentlist = require("./queries");
+const Rolelist = require("./queries");
+const Managerlist =["New Manager"];
+const Employeelist = require("./queries");
+
 const Questions ={
     "Main Menu":[ {
         type: "list",
         message: "What do you want to do? ",
-        choices: ["View Reports","Add Employee", "Add Dept", "Add Role","Delete Role","Delete Dept","Modify Resources/Role","Quit"],
+        choices: ["Show Departments","Show Roles","Show Employees","Add Employee", "Add Department", "Add Role","Update Employee Role","Delete Record","Spend by Dept","Quit"],
         name: "Action"
     }],
-    "View Reports":[{ 
+    "Delete Record":[{ 
         type:"list",
-        message: "Which Report would you like to see?",
-        choices: ['Employee Roster','Department Rosters','Roles List','Spend by Department','Main Menu'],
+        message: "In which table is the object you would like to delete  ?",
+        choices: ['department','role','employee','Main Menu'],
         name: "Action"
     }],
-    "Add Role":
-    [{
+    "Select ID": [
+    {
         type:"input",
-        message: "What is new Role Number?",
-        name: "roleID"
-    },
+        message: "What is the ID you want to delete?",
+        name: "id"
+    }
+    ],
+    "Add Role":
+    [
     {
         type:"input",
         message: "What is new Role Title?",
@@ -28,14 +36,22 @@ const Questions ={
         message: "What is new Salary (integer) for the Role?",
         name: "roleSalary"
     },
-],
-    "Add Dept" : 
-    [{
+    {
         type:"input",
-        message: "What is new Dept Number?",
-        name: "DeptID"
+        message: "Which is Department ID is the Role in (check table above)?",
+        name: "roleDeptid"
+    }  
+],
+"Add Role1":[
+    {
+        type:"confirm",
+        message: "Will new role require a NEW Department?",
+        name: "roleDeptreq"
+    }
+],
 
-    },
+"Add Department" : 
+    [
     {
         type:"input",
         message: "What is new Dept Title?",
@@ -43,70 +59,82 @@ const Questions ={
 
     }
 ],
-"Modify Resources/Role":
-[{
-    type:"list",
-    message: "Which Resource record would you like to MODIFY?",
-    choices: ['Modify Department','Modify Role','Modify Employee','Main Menu'],
-    name: "Action"
-}],
-"Delete Resources/Role":
-[{
-    type:"list",
-    message: "Which Resource record would you like to DELETE?",
-    choices: ['Delete Department','Delete Role','Main Menu'],
-    name: "Action"
-}],
-"New Department":[{
-    type:"input",
-    message:"What is title of new Department?",
-    name:"Action"
-},
+"Update Employee Role":
+[
+    {
+        type:"input",
+        message: "Which is the Employee ID you want to change roles?",
+        name: "EmployeeId"
+    },
 {
-    type:"list",
-    message: "Are you done?",
-    choices: ["Main Menu","Done"],
-    name:"Action"
+    type:"input",
+    message: "Enter new Role ID for employee - (if new role create ibefore continuing)",
+    name: "NewRoleId"
+},
+
+],
+"Delete Role":
+[{
+    type:"input",
+    message: "Which Role record would you like to DELETE?",
+    name: "Action"
+}],
+
+"Delete Dept" :[{
+    type:"input",
+    message: "Which Department would you like to DELETE?",
+    name: "Action"
+}],
+
+"Remove Employee Record": [
+    {
+        type:"input",
+        message: "Which Employee would you like to DELETE?",
+        choices: Employeelist,
+        name: "Action"
+    }
+],
+
+"Add Employee" :[ 
+    {
+        type:"input",
+        message: "What is Employee First name?",
+        name:"FirstName"
+        },
+
+    {
+        type:"input",
+        message: "What is Employee last name?",
+        name:"LastName"
+        },
+
+    {
+        type:"input",
+        message: "Enter is Employee's Manager emp id (if no manager enter NULL) ?",
+        name:"ManagerID"   
+        }
+    ],
+
+    "Employee2":[
+        {
+    type:"input",
+    message: "Input is Employee's Role id  (see table above)?",
+    name:"RoleID"
+    }
+   
+],
+"New Dept Required" :[ {
+    type:"confirm",
+    message:"Is new Dept. Required?",
+    name:"NewDeptReq"
 
 }],
-"Add Employee" :[ {
-    type:"list",
-    message: "What Employee ADD are you making?",
-    choices: ["New Dept and New Role","New Dept and Existing Role","Existing Dept and New Role","Existing Dept and Role","Main Menu"],
-    name:"Action"
-    }],
-    "New Dept and New Role": [{
-        type:"list",
-        message: "Are you done?",
-        choices: ["Main Menu","Done"],
-        name:"Action"
-    
-    }],
-    "New Dept and Existing Role":[{
-        type:"list",
-        message: "Are you done?",
-        choices: ["Main Menu","Done"],
-        name:"Action"
-    
-    }],
-    "Existing Dept and New Role":[{
-        type:"list",
-        message: "Are you done?",
-        choices: ["Main Menu","Done"],
-        name:"Action"
-    
-    }],
-    "Existing Dept and Role":[{
-        type:"list",
-        message: "Are you done?",
-        choices: ["Main Menu","Done"],
-        name:"Action"
-    
-    }]
+"New Role Required" :[ {
+    type:"confirm",
+    message:"Is new Role Required?",
+    name:"NewRoleReq"
 
+}]
 }
-
-// console.log(Questions)
-// console.log('main menu',Questions["Main Menu"])
 
 module.exports = Questions

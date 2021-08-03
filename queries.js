@@ -1,40 +1,48 @@
 
-const mysql = require('mysql2');
 
-const db = mysql.createConnection(
-    {
-      host: 'localhost',
-      // MySQL username,
-      user: 'root',
-      // TODO: Add MySQL password
-      password: 'pass',
-      database: 'organization_db'
-    },
-    console.log(`Connected to the organization_db database.`)
-  );
+sqlqueries = {
+"Show Employees": `
+SELECT e.id as EmployeeID, e.first_name, e.last_name, r.id as RoleID, r.title as Role ,d.title as Dept, m.first_name as Manager
+FROM employee e
+JOIN role r ON e.role_id = r.id 
+JOIN department d ON d.id  = r.department_id 
+Left JOIN employee m ON e.manager_id = m.id ;` ,
 
-function selectdb(table){
-db.query(`SELECT * FROM ${table}`, (err,results) =>{
-        if(err){return console.log('{error:err.message}')}
-    return JSON.parse(results)
-    })
+"Show employee": `SELECT * from employee;`,
+"Show role": `SELECT * from role;`,
+"Show Departments": `SELECT * from department;`,
+"Show department": `SELECT * from department;`,
+
+"Show Roles": `SELECT r.id as RoleID, r.title as Role, d.title as Dept,r.salary
+FROM role r
+JOIN department d ON d.id =r.department_id;`,
+
+"Add Department": `INSERT INTO department (title) VALUES (?);`,
+
+"Add Role": `INSERT INTO role (title,salary,department_id)
+VALUES(?,?,?);`,
+
+"Add Employee":`INSERT INTO employee (first_name,last_name,role_id,manager_id)
+VALUES(?,?,?,?);`,
+
+"Delete Employee Record" : `DELETE from employee WHERE id = ? ;`,
+"Delete Department Record" : `DELETE from department WHERE id = ? ;`,
+"Delete Role Record" : `DELETE from role WHERE id = ? ;`,
+
+"Update Role": `update employee e
+set e.role_id = ?
+where e.id = ?;
+`,
+"Spend by Dept": `SELECT r.department_id,d.title as Dept,sum(r.salary) as Total_Salary ,count(r.department_id) as HeadCount
+FROM organization_db.role r
+join department d on r.department_id=d.id
+join employee e on r.id = e.role_id
+group by r.department_id;`,
+"Get Departments" : "SELECT id , title from department;",
+"Get Employees" : "SELECT first_name, last_name from employee;"
 }
 
-// db.query(`DELETE FROM movies WHERE id=?`, req.params.id,(err,results)=>{
-//     if(err){res.status(500).json({error:err.message})}
-//     else if (!results.affectedRows){ res.json({msg:"movie not found"})}
-//     else{
-//         res.json({msg:"deleted",changes:results.affectedRows,id:req.params.id})
-//     }
-// })
 
-let sql =`SELECT * FROM department`;
-db.query(sql, (err, rows) => {
-    if (err) {
-      console.log('{ error: err.message }');
-       return;
-    }
-    return rows;
-  });
 
-  module.exports = selectdb
+
+  module.exports = sqlqueries

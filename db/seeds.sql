@@ -1,11 +1,11 @@
-INSERT INTO department (id_dept,nname)
+INSERT INTO department (id,title)
 VALUES (1,"Human Resources"),
        (2,"Engineering"),
        (3,"Legal and Accounting"),
        (4,"Sales and Marketing");
 
 
-INSERT INTO rrole (id_role, title,salary,department_id)
+INSERT INTO role (id, title,salary,department_id)
 VALUES (1,"Recruiter",85000,1),
        (2,"HR Specialist",65000,1),
        (3,"Junior Engineer",70000,2),
@@ -16,14 +16,14 @@ VALUES (1,"Recruiter",85000,1),
        (9,"Marketing Specialist",85000,4);
 
 
-INSERT INTO employee (id_employee, first_name, last_name, manager_id,role_id)
-VALUES (1,'Joanne','Martinez',1,2),
-       (2,'Linda','Baker',7,6),
-       (3, 'Luis','Segarra',6,3),
-       (4 ,'Henry','Horton',6,4),
-       (5 ,'Juan','Fung',6,4),
-       (6 ,'Lucinda','Marvel',6,4),
+INSERT INTO employee (id, first_name, last_name,role_id, manager_id)
+VALUES (1,'Joanne','Martinez',2,NULL),
+       (2,'Linda','Baker',6,7),
+       (3, 'Luis','Segarra',3,6),
+       (4 ,'Henry','Horton',4,6),
+       (5 ,'Juan','Fung',4,6),
+       (6 ,'Lucinda','Marvel',4,NULL),
        (7,'Jill','Hill',7,6),
-       (8,'Bob','Wood',8,8),
-       (9,'Evelyn','Cook',8,9),
+       (8,'Bob','Wood',8,NULL),
+       (9,'Evelyn','Cook',9,8),
        (10,'Eugene','Banks',1,1);
