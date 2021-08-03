@@ -1,14 +1,7 @@
 const inquirer = require("inquirer");
-const Department = require("./lib/departmentClass");
 const questions = require("./questions");
-const employee = require("./lib/employeeClass");
-const selectdb = require('./queries')
-const role = require("./lib/roleClass");
-const Role = require("./lib/roleClass");
 const mysql = require('mysql2/promise');
 const sqlqueries = require('./queries');
-
-console.log(sqlqueries)
 
 async function main(){
     const db = await mysql.createConnection(
@@ -22,13 +15,13 @@ async function main(){
       },
       console.log(`Connected to the organization_db database.`)
     );
-//  Start Questions
+//  Start Questions and program
 startquest(db);   
-// await db.end();
+
 
 }
   
-
+// Inquirer questions loops
 async function  startquest(db){
     let ans1 = await inquirer.prompt(questions["Main Menu"]);
     let nextone = String(ans1.Action);
@@ -122,6 +115,7 @@ async function  startquest(db){
   
 }
 
+// Helper - aggregate Functions for running queries
 async function ShowEmployees(db){
     let [emplist,f11] = await db.execute(sqlqueries["Show Employees"]);
     return emplist;
@@ -162,41 +156,6 @@ async function AddRole(db){
 }
 
 
-
+// Run main
 
 main();
-
-// startquest().then(console.log("made it through")).catch(e => {
-//     console.log('there has been a problem with your execute request'+ e.message)
-// });
-//   .then(console.log)
-//   .catch(console.error)
-// inquirer.prompt(menuquestion)
-//     .then((response) => {
-//         switch (response.Action1) {
-//             case 'Add Employee':
-//                 console.log('Add Employee',response)
-                
-//                 break;
-//             case 'Add Department':
-//                 let Dept = selectdb(employee)
-//                 console.log(Dept)
-//                 console.log('Add Department',response.Action1)
-//                 inquirer.prompt(newDept).
-//                     then((rep) => {
-//                         let newDept= new Department(rep.Dept_name)
-//                         console.log(newDept)})
-//                 break;
-//             case 'Add role':
-//                 console.log('Add Role',response.Action1)
-                    
-//                 break;
-//             case 'Quit':
-//                 console.log("Good Bye, to logon again type: npm start")
-//                     break;
-//             default:
-//                 break;
-//      }
-// })
-
-
